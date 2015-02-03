@@ -1,0 +1,524 @@
+// ------------------------------------------------------------
+// _base.scss
+//
+// All styling goes in here. 
+// Please check what functions & mixins
+// are available in _utils.scss
+//
+// ------------------------------------------------------------
+
+//better box model as per paulirish.com/2012/box-sizing-border-box-ftw
+*{
+  &,
+  &:before,
+  &:after{
+      @include vendor(box-sizing, border-box);
+  }
+}
+
+body {
+	font-family: $body-font-family;
+	@include adjust-font-size-to($base-font-size);
+	@include establish-baseline;
+	color: $body-font-color;
+  background: $body-bg ;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: $header-font-family;
+	font-weight: 600; 
+	color: $header-font-color;
+	letter-spacing: -1px;
+}
+
+h1 { @include adjust-to-scale(4); letter-spacing: 0.5px } 
+h2 { @include adjust-to-scale(3); letter-spacing: 0.5px }
+h3 { @include adjust-to-scale(2); letter-spacing: 0.25px }
+h4 { @include adjust-to-scale(2) }
+h5 { @include adjust-to-scale(1) }
+h6 { @include adjust-to-scale(1) } 	
+
+p, pre, label { 
+	@include adjust-font-size-to($base-font-size); 
+	margin: 0 0 rhythm(2, $base-font-size) 0;							// 2 lines below, based on font size
+  display: block;  
+}
+
+ol, ul {
+	@include adjust-font-size-to(16px);
+	margin: 0 0 rhythm(4, $base-font-size) 0;							// 4 lines below, based on font size
+}
+ul 			{ list-style-position: outside; list-style-type: disc; }
+ol 			{ list-style-position: outside; list-style-type: decimal; }
+ul ul, ul ol, ol ol, ol ul {
+  margin: rhythm(1) 0 0;
+}
+li 			{ line-height: auto; margin-bottom: rhythm(1); }
+strong, b 	{ font-weight: 600; }
+em, i, q 	{ font-style: italic; }
+
+blockquote {
+	padding-left: em-font($base-font-size);
+	border-left: em-font(5px) solid grey;
+	line-height: normal;
+	margin: 0;
+	p {
+		font-style: italic;
+		margin: 0;
+		@include adjust-font-size-to(20px); 
+		margin: rhythm(3, 20px) 0 rhythm(3, 20px) 0; 		//  3 lines above / 3 lines below, based on font size
+	}
+}
+
+a {
+	color: $anchor-font-color	;
+	text-decoration: none;
+	@include force-wrap;					// force text links to wrap
+	
+  &:hover, &:focus, &:active {
+		color: $anchor-font-color-hover;
+	}
+} 
+
+/* == Layout ======================= */
+
+// Dynamic Sidebars
+body.no-sidebar {
+  .main main { @extend .large-12 }
+}
+body.one-sidebar.sidebar-first {
+  .main main { @extend .large-9; @extend .push-3 }
+  aside.sidebar.first { @extend .large-3; @extend .pull-9 }
+}
+body.one-sidebar.sidebar-second {
+  .main main { @extend .large-9 }
+  aside.sidebar.second { @extend .large-3; }
+}
+body.two-sidebars {
+  .main main { @extend .large-6; @extend .large-push-3 }
+  .sidebar.first { @extend .large-3; @extend .large-pull-6 }
+  aside.sidebar.second {  @extend .large-3; }
+}
+
+/* == Buttons ============================= */
+.button,
+.form-submit,
+input[type=submit] {
+  display: inline-block;
+  padding: 10px 15px;
+  border: 0;
+  background-color: $anchor-font-color	;
+  color: #fff;
+  font-family: $header-font-family;
+}
+.button:hover,
+.form-submit:hover,
+input[type=submit]:hover {
+  background-color: darken($anchor-font-color	, 10%);
+}
+
+/* == Forms ============================= */
+
+input[type=text], 
+input[type=password], 
+input[type=email], 
+input[type=url], 
+input[type=date], 
+input[type=month], 
+input[type=time], 
+input[type=datetime], 
+input[type=datetime-local], 
+input[type=week], 
+input[type=number], 
+input[type=search], 
+input[type=tel], 
+input[type=color], 
+select,
+textarea {
+  padding: .5em .6em;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-bottom: 1px dashed #333; 
+  font-size: .8em;
+  box-shadow: none;
+  width: 100%;
+  max-width: 400px;  
+  outline: none;
+  
+  @include vendor(transition, .3s linear border);
+  &:focus {
+    border-color: $anchor-font-color	;
+  }
+}
+fieldset {
+  margin-bottom: rhythm(4);
+}
+/*  Drupal classes */
+.form-item {
+  margin-bottom: rhythm(3);
+}
+.form-managed-file .form-submit {
+  background: $anchor-font-color;
+  &:hover {
+    background: darken($anchor-font-color,10%);
+  }
+}
+.description {
+  @include adjust-font-size-to(12px); 
+  margin-bottom: rhythm(1);
+}
+label.option {
+  display: inline;
+}
+.webform-component-date .form-select,
+.webform-component-time .form-select {
+  width: auto;
+}
+.webform-component-textarea .grippie {
+  display: none;
+}
+
+// anti robot fields
+.form-item-leaveblank {
+  display: none !important;
+  visibility: hidden;
+  padding: 0;
+  margin: 0;
+  height: 0;
+  position: absolute;
+}
+
+/* == Breadcrumbs  ============================= */
+
+.breadcrumb {
+  margin-bottom: rhythm(4);
+}
+
+/* == Tabs ============================= */
+
+.tabs {
+  display: inline-block;
+}
+
+.tabs.primary {  
+  @include horizontal-list;
+  margin-bottom: rhythm(4);
+  li {
+    margin: 0 1px 0 0;
+    padding: 0;
+
+  }  
+  a {
+    padding: 10px 15px;
+    display: block;
+    float: left;
+    background: #f2f2f2;
+    color: #333;
+    &.active {
+      background: #e9e9e9;  
+    }
+    &:hover {
+      background: $anchor-font-color-hover;
+      color: #fff;
+    }
+  }
+}
+
+/* == Messages ============================= */
+
+.alert {
+    padding: 1em 2em 1em 1em;
+    position: relative;
+    margin-bottom: rhythm(4);
+    color: #fff;
+  .close {    
+      color: #fff;
+      font-size: 30px;
+      position: absolute;
+      right: 0.5em;
+      top: 0.5em;      
+      display: block;
+      height: 30px;
+      width: 30px;
+      line-height: 30px;
+      text-decoration: none;
+      text-align: center;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.1);
+      &:hover {
+        background: rgba(0,0,0,0.2);
+      }
+  }
+  &.info {
+    background: #5BC0DE;
+  }
+  &.error {
+    background: #D9534F;        
+  }
+  &.warning {
+    background: #5CB85C;    
+  }
+  &.status {
+    background: #5CB85C;
+  }
+}
+.alert > *:last-child,
+.alert > *:last-child > *:last-child,
+.alert > *:last-child > *:last-child > *:last-child {
+  margin-bottom: 0;
+}
+
+/* == Pagination ============================= */
+.pager {
+	padding: 0;
+	
+	li {
+		display: inline-block;
+		list-style: none;
+	}
+	
+	a {
+    color: #000;
+		background: #ccc;
+		border-radius: 3px;
+		display: inline-block;
+		padding: 5px 12px;
+		&:hover {
+			background: darken(#ccc, 10%);
+		}
+		&:active {
+			background: darken(#ccc, 20%);
+		}		
+	}
+	
+	.pager-current {
+		background: #333;
+		border-radius: 3px;
+		color: #fff;
+		padding: 5px 12px;		
+	}
+}
+
+
+
+/* == Sitemap ============================= */
+.site-map {
+  > ul > li > a {
+    font-weight: bold;
+    padding: 10px 15px;
+    margin-bottom: rhythm(2);
+  }
+  
+  > ul > li.expanded {
+    margin-bottom: 9px;
+    
+    > a { margin-bottom: 1px }
+  } 
+  
+  ul {
+    padding: 0;
+    margin: 0;
+    
+    ul { 
+      padding-left: 20px;
+      
+      a {  background: #999 }
+      ul a { background: #777 }
+      ul ul a { background: #555 }
+      ul ul ul a { background: #333 }
+    }
+    
+    a {
+      padding: 5px 10px;
+      background: $primary-color ; /* Change to primary colour */
+    }
+  }
+  
+  li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  a {
+    color: white;
+    display: inline-block;
+    margin-bottom: 1px;
+    
+    &:hover { 
+      background: darken($primary-color , 10%);
+    }
+  }
+} 
+
+
+/* == Tables ============================= */
+
+th {
+  text-align: left;
+}
+table.table-styled {
+	background: #fff;
+	margin: 0 0 18px;
+	border-collapse: collapse;
+	border: 0;
+	width: 100%;
+	
+	thead, 
+	tfoot { 
+	 background: #f5f5f5;
+	}
+	
+	tr th,
+	tfoot tr th,
+	tbody tr td,
+	tr td,
+	tfoot tr td {
+		line-height: 18px;
+		text-align: left;
+	}
+	
+	tr th,
+	tfoot tr td {
+  	padding: 5px 10px;
+  	font-weight: bold;
+  	color: #222;
+  	
+  	&:first-child {
+      border-left: none;	
+  	}
+  	
+  	&:last-child {
+    	border-right: none;
+  	}
+	}
+  
+  th {
+  	font-size: 16px;
+  	font-weight: bold;
+  	border-bottom: 2px solid $primary-color ;
+  	border-top: 0;
+  	border-right: 0;
+  	border-left: 0;
+  	background: #fff;
+  }
+  
+  td {
+  	border-bottom: 1px dotted #ccc;
+  	padding: 5px 10px;  	
+  	p:last-child { margin-bottom: 0 }
+  }
+}
+
+table.table-styled-vertical {
+	background: #fff;
+	margin: 0 0 18px;
+	border-collapse: collapse;
+	border: 0;
+	width: 100%;
+	
+  thead,
+  tfoot {
+    background: #f5f5f5;
+  }
+  
+  tr th,
+  tfoot tr th,
+  tbody tr td,
+  tr td,
+  tfoot tr td {
+    line-height: 18px;
+    text-align: left; 
+  }
+  
+  tr th,
+  tfoot tr td {
+    padding: 5px 10px;
+    font-weight: bold;
+    color: #222;
+    
+    &:first-child {  
+      border-left: none;
+      padding-left: 0;
+    }
+    
+    &:last-child {
+      border-right: none;  
+    }
+  }
+  
+  th {
+  	font-size: 16px;
+  	font-weight: bold;
+  	border-right: 2px solid $primary-color ;
+  	border-bottom: 1px dotted #ccc;
+  }
+  
+  td {
+  	border-bottom: 1px dotted #ccc;
+  	border-right: 1px dotted #ccc;
+  	padding: 5px 10px;
+  	
+  	&:last-child {
+      border-right: 0;
+    }
+    
+    p:last-child {
+    	margin-bottom: 0;
+    }
+    
+    &:nth-child(2n) {
+    	background: #F9F9F9;
+    }
+  }
+  
+  tr:nth-child(2n) {
+    background: #FFF;
+  }
+}
+
+table.table-unstyled {
+	border: 0;
+	
+	th {
+  	text-align: left;
+  }
+  
+  tr:nth-child(2n),
+  tr,
+  td,
+  th {
+  	background-color: transparent;
+  	border: 0;
+  	padding: 5px 5px 5px 0;
+  	font-weight: normal;
+  	text-align: left;  
+  }
+  
+  tr td:last-child,
+  tr th:last-child {
+    padding-right: 0; 
+  }
+}
+
+/* == Login page ============================= */
+
+.page-user {
+  background: #f2f2f2;
+  .login-form {
+    background: #fff;
+    max-width: 400px;
+    margin: 40px auto 0;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 5px #ccc;
+    h1 {
+      text-align: center;
+    }
+  }
+  .login-footer {
+    margin: 0 auto;
+    max-width: 400px;
+    text-align: center;
+  }
+}
