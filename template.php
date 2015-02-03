@@ -11,7 +11,7 @@ $settings = array(
 );
 drupal_add_css($link, $settings);
 
-function gypsyspirit_css_alter(&$css) {
+function rbbmaster_css_alter(&$css) {
   // Remove system css files.
   unset($css[drupal_get_path('module', 'system') . '/system.menus.css']);
   unset($css[drupal_get_path('module', 'system') . '/system.theme.css']);
@@ -19,7 +19,7 @@ function gypsyspirit_css_alter(&$css) {
   unset($css[drupal_get_path('module', 'search') . '/search.css']);
 }
 
-function gypsyspirit_preprocess_html(&$variables) {
+function rbbmaster_preprocess_html(&$variables) {
   // Classes for body element. Allows advanced theming based on context
   if (!$variables['is_front']) {
     // Add unique class for each page.
@@ -39,7 +39,7 @@ function gypsyspirit_preprocess_html(&$variables) {
   }
 }
 
-function gypsyspirit_preprocess_page(&$variables) {
+function rbbmaster_preprocess_page(&$variables) {
 
   // Page templates per content type
   if (isset($vars['node'])) {
@@ -51,7 +51,7 @@ function gypsyspirit_preprocess_page(&$variables) {
 /**
  * Implements template_breadcrumb().
  */
-function gypsyspirit_breadcrumb($variables) {
+function rbbmaster_breadcrumb($variables) {
   $breadcrumb = $variables['breadcrumb'];
   $title = strip_tags(drupal_get_title());
 
@@ -70,7 +70,7 @@ function gypsyspirit_breadcrumb($variables) {
  * Clean up the Sitemap module's markup
  */
 
-function gypsyspirit_site_map_box($variables) {
+function rbbmaster_site_map_box($variables) {
   $title = $variables['title'];
   $content = $variables['content'];
   $attributes = $variables['attributes'];
@@ -84,7 +84,7 @@ function gypsyspirit_site_map_box($variables) {
   return $output;
 }
 /*
-function gypsyspirit_site_map_menu_tree($variables) {
+function rbbmaster_site_map_menu_tree($variables) {
   return '<ul>' . $variables['tree'] . '</ul>';
 }
 */
@@ -94,7 +94,7 @@ function gypsyspirit_site_map_menu_tree($variables) {
 /**
  * Returns HTML for status and/or error messages, grouped by type.
  */
-function gypsyspirit_status_messages($variables) {
+function rbbmaster_status_messages($variables) {
   $display = $variables['display'];
   $output = '';
 
@@ -143,7 +143,7 @@ function gypsyspirit_status_messages($variables) {
 /**
  * Implements hook_form_alter()
  */
-function gypsyspirit_form_alter(&$form, &$form_state, $form_id) {
+function rbbmaster_form_alter(&$form, &$form_state, $form_id) {
   // add a field that needs to stay empty against spam
   // http://www.ngenworks.com/blog/invisible_captcha_to_prevent_form_spam
   $form['leaveblank'] = array(
@@ -151,13 +151,13 @@ function gypsyspirit_form_alter(&$form, &$form_state, $form_id) {
     '#title' => 'Please leave blank',
   );
   // add validation function
-  $form['#validate'][] = 'gypsyspirit_nospam_validate';
+  $form['#validate'][] = 'rbbmaster_nospam_validate';
 }
 
 /**
  * additional validation function for forms
  */
-function gypsyspirit_nospam_validate($form, &$form_state){
+function rbbmaster_nospam_validate($form, &$form_state){
   // make sure 'leaveblank' field stays empty
   if( $form_state['values']['leaveblank'] != '' ) {
     form_set_error('leaveblank', t('Leave blank field must stay empty')); 
