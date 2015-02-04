@@ -163,3 +163,24 @@ function rbbmaster_nospam_validate($form, &$form_state){
     form_set_error('leaveblank', t('Leave blank field must stay empty')); 
   }
 }
+
+/**
+ * Implements hook_preprocess_block()
+ * to get more descriptive html-id's for blogs
+ */
+function rbbmaster_preprocess_block(&$variables){
+	$id = $variables['id'];
+	$block = module_invoke('block', 'block_info', $id);	  
+	if($block[$id]['info']){
+		$variables['block_html_id'] = cssifyString($block[$id]['info']);
+	}
+}
+
+// needed for block-id renaming
+function cssifyString($string) {
+    $string = strtolower($string); //Lower case everything
+    $string = preg_replace("/[^a-z0-9_\s-]/", "", $string); //Make alphanumeric (removes all other characters)
+    $string = preg_replace("/[\s-]+/", " ", $string); //Clean up multiple dashes or whitespaces
+    $string = preg_replace("/[\s_]/", "-", $string); //Convert whitespaces and underscore to dash
+    return $string;
+}

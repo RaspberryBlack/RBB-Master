@@ -114,7 +114,7 @@ input[type=submit] {
 .button:hover,
 .form-submit:hover,
 input[type=submit]:hover {
-  background-color: darken($anchor-font-color	, 10%);
+  background-color: $anchor-font-color-hover;
 }
 
 /* == Forms ============================= */
@@ -160,7 +160,7 @@ fieldset {
 .form-managed-file .form-submit {
   background: $anchor-font-color;
   &:hover {
-    background: darken($anchor-font-color,10%);
+    background: $anchor-font-color-hover;
   }
 }
 .description {
