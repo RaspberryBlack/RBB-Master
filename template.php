@@ -171,7 +171,7 @@ function rbbmaster_nospam_validate($form, &$form_state){
 function rbbmaster_preprocess_block(&$variables){
 	$id = $variables['id'];
 	$block = module_invoke('block', 'block_info', $id);	  
-	if($block[$id]['info']){
+	if( isset ($block[$id]['info']) ){
 		$variables['block_html_id'] = cssifyString($block[$id]['info']);
 	}
 }
