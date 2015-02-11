@@ -3,7 +3,7 @@
 /**
  * Import Google fonts
  */
-$link = 'http://fonts.googleapis.com/css?family=PT+Serif:400,700,400italic';
+$link = 'http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic';
 $settings = array(
 	'type' => 'external',
 	'group' => CSS_THEME,
@@ -11,7 +11,38 @@ $settings = array(
 );
 drupal_add_css($link, $settings);
 
-function gypsyspirit_css_alter(&$css) {
+/**
+ * Import jQuery qTip
+ */
+$link = drupal_get_path('theme', 'ayurdo') .'/js/jquery.qtip.custom/jquery.qtip.min.js';
+$settings = array(
+	'scope' => 'footer',
+	'group' => JS_LIBRARY,
+);
+drupal_add_js($link, $settings);
+
+$link = drupal_get_path('theme', 'ayurdo') .'/js/jquery.qtip.custom/jquery.qtip.min.css';
+$settings = array(
+	'group' => JS_LIBRARY,
+);
+drupal_add_css($link, $settings);
+
+/**
+ * Import theme js
+ */
+$link = drupal_get_path('theme', 'ayurdo') .'/js/script.js';
+$settings = array(
+	'scope' => 'footer',
+	'group' => JS_THEME,
+);
+drupal_add_js($link, $settings);
+
+
+
+
+
+
+function ayurdo_css_alter(&$css) {
   // Remove system css files.
   unset($css[drupal_get_path('module', 'system') . '/system.menus.css']);
   unset($css[drupal_get_path('module', 'system') . '/system.theme.css']);
@@ -19,7 +50,7 @@ function gypsyspirit_css_alter(&$css) {
   unset($css[drupal_get_path('module', 'search') . '/search.css']);
 }
 
-function gypsyspirit_preprocess_html(&$variables) {
+function ayurdo_preprocess_html(&$variables) {
   // Classes for body element. Allows advanced theming based on context
   if (!$variables['is_front']) {
     // Add unique class for each page.
@@ -39,7 +70,7 @@ function gypsyspirit_preprocess_html(&$variables) {
   }
 }
 
-function gypsyspirit_preprocess_page(&$variables) {
+function ayurdo_preprocess_page(&$variables) {
 
   // Page templates per content type
   if (isset($vars['node'])) {
@@ -51,7 +82,7 @@ function gypsyspirit_preprocess_page(&$variables) {
 /**
  * Implements template_breadcrumb().
  */
-function gypsyspirit_breadcrumb($variables) {
+function ayurdo_breadcrumb($variables) {
   $breadcrumb = $variables['breadcrumb'];
   $title = strip_tags(drupal_get_title());
 
@@ -70,7 +101,7 @@ function gypsyspirit_breadcrumb($variables) {
  * Clean up the Sitemap module's markup
  */
 
-function gypsyspirit_site_map_box($variables) {
+function ayurdo_site_map_box($variables) {
   $title = $variables['title'];
   $content = $variables['content'];
   $attributes = $variables['attributes'];
@@ -84,7 +115,7 @@ function gypsyspirit_site_map_box($variables) {
   return $output;
 }
 /*
-function gypsyspirit_site_map_menu_tree($variables) {
+function ayurdo_site_map_menu_tree($variables) {
   return '<ul>' . $variables['tree'] . '</ul>';
 }
 */
@@ -94,7 +125,7 @@ function gypsyspirit_site_map_menu_tree($variables) {
 /**
  * Returns HTML for status and/or error messages, grouped by type.
  */
-function gypsyspirit_status_messages($variables) {
+function ayurdo_status_messages($variables) {
   $display = $variables['display'];
   $output = '';
 
@@ -143,7 +174,7 @@ function gypsyspirit_status_messages($variables) {
 /**
  * Implements hook_form_alter()
  */
-function gypsyspirit_form_alter(&$form, &$form_state, $form_id) {
+function ayurdo_form_alter(&$form, &$form_state, $form_id) {
   // add a field that needs to stay empty against spam
   // http://www.ngenworks.com/blog/invisible_captcha_to_prevent_form_spam
   $form['leaveblank'] = array(
@@ -151,15 +182,37 @@ function gypsyspirit_form_alter(&$form, &$form_state, $form_id) {
     '#title' => 'Please leave blank',
   );
   // add validation function
-  $form['#validate'][] = 'gypsyspirit_nospam_validate';
+  $form['#validate'][] = 'ayurdo_nospam_validate';
 }
 
 /**
  * additional validation function for forms
  */
-function gypsyspirit_nospam_validate($form, &$form_state){
+function ayurdo_nospam_validate($form, &$form_state){
   // make sure 'leaveblank' field stays empty
   if( $form_state['values']['leaveblank'] != '' ) {
     form_set_error('leaveblank', t('Leave blank field must stay empty')); 
   }
+}
+
+/**
+ * Implements hook_preprocess_block()
+ * to get more descriptive html-id's for blogs
+ */
+function ayurdo_preprocess_block(&$variables){
+	$id = $variables['id'];
+	$block = module_invoke('block', 'block_info', $id);	  
+	
+	if( isset ($block[$id]['info']) ){
+		$variables['block_html_id'] = cssifyString($block[$id]['info']);
+	}
+}
+
+// needed for block-id renaming
+function cssifyString($string) {
+    $string = strtolower($string); //Lower case everything
+    $string = preg_replace("/[^a-z0-9_\s-]/", "", $string); //Make alphanumeric (removes all other characters)
+    $string = preg_replace("/[\s-]+/", " ", $string); //Clean up multiple dashes or whitespaces
+    $string = preg_replace("/[\s_]/", "-", $string); //Convert whitespaces and underscore to dash
+    return $string;
 }

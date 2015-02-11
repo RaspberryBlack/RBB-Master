@@ -24,6 +24,7 @@
         , "compass/typography/vertical_rhythm"
 //        , "compass/typography/lists/horizontal-list"
         , "compass/css3/font-face"
+        , "compass/css3/images"
 ;
 
 // Import fonts
@@ -41,12 +42,16 @@
 *		.svg#svgFontName > legacy iOS, Opera mini
 */ 
 
-/*
-@include font-face("icomoon", font-files("icomoon/icomoon.woff", "icomoon/icomoon.svg#icomoon"), "icomoon/icomoon.eot",
+@include font-face("Qlassik", font-files("qlassik/qlassik.woff", "qlassik/qlassik.svg#qlassik"), "qlassik/qlassik.eot",
 	$weight: normal,
 	$style: normal
 );
-*/
+
+@include font-face("Qlassik", font-files("qlassik/qlassikbold.woff", "qlassik/qlassikbold.svg#qlassikbold"), "qlassik/qlassikbold.eot",
+	$weight: bold,
+	$style: normal
+);
+
 
 // ------------------------------------------------------------
 // THEME VARIABLES
@@ -54,7 +59,7 @@
 
 // Typography
 $body-font-family		  : 'Droid Serif', serif;
-$header-font-family   : $body-font-family;
+$header-font-family   : 'Qlassik', sans-serif;
 $header-font-weight   : normal;
 $header-font-style    : normal;
 
@@ -64,18 +69,21 @@ $base-line-height			: 8px;					// Baseline grid. Set to a sensible, small size.
 $modular-scale				: fourth();			// A meaninglful modular scale: http://modularscale.com/
 
 // Define main colour palette
-$primary-color        : #008CBA;
-$secondary-color      : #e7e7e7;
+$primary-color        : #8b1758;		// deep red-pink
+$secondary-color      : #FECC81;		// light orange
+$tertiary-color				: #ADBD06;		// green
 
 
 // Assign colours to variable roles
 $body-bg              : #FFF;
-$body-font-color			: #222;
-$header-font-color		: $primary-color;
+$body-font-color			: #333;
+$header-font-color		: lighten($body-font-color, 10%);
 
 // Links
 $anchor-font-color				: $primary-color;
-$anchor-font-color-hover	: darken($primary-color, 10%)	;
+$anchor-font-color-hover	: darken($anchor-font-color, 20%);
+
+$border-color: #aaa;
 
 /*
 $alert-color          : #f04124;

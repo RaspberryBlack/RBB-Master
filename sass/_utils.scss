@@ -88,8 +88,6 @@ overflow: hidden;
 
 // SVG mixin with fallback; requires modernizr classes
 @mixin svg($image_name, $w: 100%, $h: auto, $repeat: no-repeat, $extention: '.png') {
-  width: $w;
-  height: $h;
   background-size: $w $h;
   background-repeat: $repeat;
 

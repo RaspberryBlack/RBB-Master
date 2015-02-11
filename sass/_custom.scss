@@ -1,0 +1,241 @@
+// ------------------------------------------------------------
+// GRID
+// ------------------------------------------------------------
+
+// Dynamic Sidebars
+body.no-sidebar {
+  .main main { @extend .large-12 }
+}
+body.one-sidebar.sidebar-first {
+  .main main { @extend .large-8; @extend .push-4 }
+  aside.sidebar.first { @extend .large-4; @extend .pull-8 }
+}
+body.one-sidebar.sidebar-second {
+  .main main { @extend .large-8 }
+  aside.sidebar.second { @extend .large-4; }
+}
+body.two-sidebars {
+  .main main { @extend .large-6; @extend .large-push-3 }
+  .sidebar.first { @extend .large-3; @extend .large-pull-6 }
+  aside.sidebar.second {  @extend .large-3; }
+}
+
+// Other Regions
+
+// three blocks on front page
+.front .region-preface .block {
+	@extend .columns;
+	@extend .medium-4;
+}
+
+// ------------------------------------------------------------
+// STYLES
+// ------------------------------------------------------------
+
+body {
+	background: url("../images/body_bg.jpg");
+}
+
+.header-wrapper {
+	background: $primary-color;
+	position: relative;
+	//z-index: -1;
+	
+	&:before {
+		content: '';
+		position: absolute;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		
+		@include background(	linear-gradient(to right, $primary-color, rgba($primary-color, 0) 70%, transparent),
+    											image-url("../images/pattern.png")
+    );
+    background-attachment: fixed;
+	}
+	
+	&:after {
+		content: '';
+		position: absolute;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		background: url("../images/structure.png") bottom repeat-x;
+		border-bottom: 2px solid #333;	
+	}
+}
+
+header {
+
+	h1 {
+		position: absolute;
+		top:-10em;
+	}
+	
+	h2{
+		display: none;
+		color: #fff;
+		font-family: $body-font-family;
+		
+/*
+		@include breakpoint($medium-up) {
+			display: block;		
+		}
+*/
+	}
+	
+	a[rel="home"] {
+		position: relative;
+		z-index: 1;
+	}
+	
+	
+	.site-logo {
+		@include svg("../images/logo");
+		width: 400px;
+		height: 120px;
+		margin-bottom: -1 * rhythm(1);
+		margin-top: rhythm(1);
+		margin-left: -.5em;	
+	}
+}
+
+.preface {
+	margin-top: 2em;
+	margin-bottom: 2em;
+}
+
+// Dosha Portals
+.front .region-preface .block {
+	// careful, these are grid elements
+	position: relative;
+	padding: 1em 2em;
+	
+	&:before {
+		content: '';
+		position: absolute;
+		top:0;
+		bottom: 0;
+		left: .5 * $column-gutter;
+		right: .5 * $column-gutter;
+		border: 1px solid $border-color;
+		border-radius: 10px;
+		overflow: hidden;
+		background-position: center;
+		background-size: cover;
+		background-color: #fff; 
+		z-index: -1;
+	}
+	
+	h2, a {
+		color: lighten($body-font-color, 20%);
+	}
+	
+	a:focus, a:hover, a:active { color: $body-font-color }
+	
+	@include breakpoint($small-only) { margin-bottom: 1em }
+}
+
+#vata-portal:before { background-image: url("../images/vata-portal.png"); }
+#pitta-portal:before { background-image: url("../images/pitta-portal.png"); }
+#kapha-portal:before { background-image: url("../images/kapha-portal.png"); }
+
+// ------------------------------------------------------------
+// CLASSES FOR PAGE CONTENT
+// ------------------------------------------------------------
+
+.node {
+	
+	.half {
+		@extend .columns;
+		@extend .medium-6;
+	}
+	
+	.third {
+		@extend .columns;
+		@extend .medium-4;	
+	}
+	
+	.row {
+		margin-bottom: 1em;		
+	}
+	
+	img {
+		background: #fff;
+		padding: 5px;
+		border: 1px solid lighten($border-color, 20%);
+		border-radius: 10px;
+	}
+	
+	figcaption {
+		text-align: right;
+		font-style: italic;
+		font-size: .9em;
+		line-height: 1.25em;
+		margin: .5em 0 2em;
+	}
+	
+	blockquote {
+		font-style: italic;
+		padding: 5px;
+		border-radius: 10px;
+		border: none;
+		font-size: 1.3em;
+		//color: #7F4C61;
+		color: desaturate(lighten($primary-color, 10%), 40%);
+		
+		&:before {
+			@extend %icon-quote; 
+			font-size: 2em;
+		}
+		
+		*:not(.row) {
+			> &.left { margin-right: 1em }
+			> &.right { margin-left: 1em }	
+		}
+
+		
+		@include breakpoint($small-only) {
+			margin-bottom: 1.5em;
+		}
+	}
+	
+	.field-type-text-long,
+	.field-type-text-with-summary{
+		a {
+			color: lighten($primary-color, 5%);
+			
+			&:hover, &:focus, &:active {
+				color: saturate(lighten($primary-color, 5%), 100%);
+			}
+		}
+		
+		a.lexicon-term{
+			border-bottom-color: $primary-color;
+			cursor: help;
+		}
+	}
+}
+
+// ------------------------------------------------------------
+// other stuff
+// ------------------------------------------------------------
+
+.qtip {
+	background: #fff;
+	font-size: .9em;
+	line-height: 1.25em;
+	font-family: inherit;
+	border: 1px solid $border-color;
+	border-radius: 1em;
+	box-shadow: 1px 1px 5px 0 rgba($border-color, 10%);
+}
+.qtip-titlebar {
+	background-color: #eee !important;
+	border-top-left-radius: inherit;
+	border-top-right-radius: inherit; 
+}
+.qtip-content {
+	padding-top: .5em;
+	padding-bottom: .75em;
+}

@@ -1,3 +1,10 @@
+<?php if($page['preface']): ?>
+	<section class="preface row">
+		<?php print render($page['preface']); ?>
+	</section>
+<?php endif; ?>
+	
+
 <div class="main row">
   
   <main role="main" id="main-content" class="columns"> <?php //don't remove main-content id; necessary for skip-link ?>
