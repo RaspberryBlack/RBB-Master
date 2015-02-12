@@ -166,16 +166,21 @@ function rbbmaster_nospam_validate($form, &$form_state){
 
 /**
  * Implements hook_preprocess_block()
- * to get more descriptive html-id's for blogs
+ * to get more descriptive html-id's for blogs (only manually created ones)
  */
 function rbbmaster_preprocess_block(&$variables){
-	$id = $variables['id'];
-	$block = module_invoke('block', 'block_info', $id);	  
-	if( isset ($block[$id]['info']) ){
-		$variables['block_html_id'] = cssifyString($block[$id]['info']);
+
+	$block_element = $variables['elements']['#block'];
+	if($block_element->module === 'block'){
+		
+		$id = $block_element->delta;
+		$block = module_invoke('block', 'block_info', $id);
+		
+		if( isset($block[$id]['info']) ){
+			$variables['block_html_id'] = cssifyString($block[$id]['info']);	
+		}
 	}
 }
-
 // needed for block-id renaming
 function cssifyString($string) {
     $string = strtolower($string); //Lower case everything
