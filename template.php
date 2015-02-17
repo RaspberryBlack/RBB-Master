@@ -12,6 +12,16 @@ $settings = array(
 drupal_add_css($link, $settings);
 
 /**
+ * Import responsive nav
+ */
+$link = drupal_get_path('theme', 'ayurdo') .'/js/responsive-nav/responsive-nav.min.js';
+$settings = array(
+	'scope' => 'footer',
+	'group' => JS_LIBRARY,
+);
+drupal_add_js($link, $settings);
+
+/**
  * Import jQuery qTip
  */
 $link = drupal_get_path('theme', 'ayurdo') .'/js/jquery.qtip.custom/jquery.qtip.min.js';
@@ -23,7 +33,23 @@ drupal_add_js($link, $settings);
 
 $link = drupal_get_path('theme', 'ayurdo') .'/js/jquery.qtip.custom/jquery.qtip.min.css';
 $settings = array(
+	'group' => CSS_THEME,
+);
+drupal_add_css($link, $settings);
+
+/**
+ * Import slick slider
+ */
+$link = drupal_get_path('theme', 'ayurdo') .'/js/slick/slick.min.js';
+$settings = array(
+	'scope' => 'footer',
 	'group' => JS_LIBRARY,
+);
+drupal_add_js($link, $settings);
+
+$link = drupal_get_path('theme', 'ayurdo') .'/js/slick/slick.css';
+$settings = array(
+	'group' => CSS_THEME,
 );
 drupal_add_css($link, $settings);
 
@@ -196,18 +222,31 @@ function ayurdo_nospam_validate($form, &$form_state){
 }
 
 /**
- * Implements hook_preprocess_block()
- * to get more descriptive html-id's for blogs
+ * impelemts hook_form_ID_alter
+ * to change the search block
  */
-function ayurdo_preprocess_block(&$variables){
-	$id = $variables['id'];
-	$block = module_invoke('block', 'block_info', $id);	  
-	
-	if( isset ($block[$id]['info']) ){
-		$variables['block_html_id'] = cssifyString($block[$id]['info']);
-	}
+function ayurdo_form_search_block_form_alter(&$form, &$form_state) {
+  $form['search_block_form']['#attributes']['placeholder'] = t('search...');
 }
 
+
+/**
+ * Implements hook_preprocess_block()
+ * to get more descriptive html-id's for blogs (only manually created ones)
+ */
+function ayurdo_preprocess_block(&$variables){
+
+	$block_element = $variables['elements']['#block'];
+	if($block_element->module === 'block'){
+		
+		$id = $block_element->delta;
+		$block = module_invoke('block', 'block_info', $id);
+		
+		if( isset($block[$id]['info']) ){
+			$variables['block_html_id'] = cssifyString($block[$id]['info']);	
+		}
+	}
+}
 // needed for block-id renaming
 function cssifyString($string) {
     $string = strtolower($string); //Lower case everything

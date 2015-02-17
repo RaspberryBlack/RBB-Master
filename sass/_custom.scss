@@ -28,6 +28,7 @@ body.two-sidebars {
 	@extend .medium-4;
 }
 
+
 // ------------------------------------------------------------
 // STYLES
 // ------------------------------------------------------------
@@ -39,7 +40,6 @@ body {
 .header-wrapper {
 	background: $primary-color;
 	position: relative;
-	//z-index: -1;
 	
 	&:before {
 		content: '';
@@ -66,6 +66,9 @@ body {
 }
 
 header {
+	position: relative;
+	z-index: 1;
+	padding-bottom: 1em;
 
 	h1 {
 		position: absolute;
@@ -84,19 +87,27 @@ header {
 */
 	}
 	
-	a[rel="home"] {
-		position: relative;
-		z-index: 1;
+	.branding {
+		min-width: 20em;
 	}
-	
-	
+	@include breakpoint($small-only){
+		padding-bottom: 0;
+		
+		a[rel="home"] {
+			display: block;
+			text-align: center;	
+		}	
+	}
+
 	.site-logo {
 		@include svg("../images/logo");
 		width: 400px;
-		height: 120px;
-		margin-bottom: -1 * rhythm(1);
+		height: 90px;
+		margin-bottom: -1.5em;
 		margin-top: rhythm(1);
-		margin-left: -.5em;	
+		margin-left: -.5em;
+		background-size:contain;
+		background-position: bottom;
 	}
 }
 
@@ -105,55 +116,207 @@ header {
 	margin-bottom: 2em;
 }
 
-// Dosha Portals
-.front .region-preface .block {
-	// careful, these are grid elements
-	position: relative;
-	padding: 1em 2em;
+//==============================================================================
+// MAIN MENU
+.navigation {
+	nav { 
+		padding: 0;
+		width: 100%;
+	}
 	
-	&:before {
-		content: '';
+	.menu-name-main-menu > .menu {
+		font-size: 1.3em;	
+		
+		ul ul { display: none !important } // don't show third level
+	}
+	.menu {
+		font-family: $header-font-family;
+		padding: 0;
+		
+		a { 
+			color:#fff;
+			
+			&:hover, &:focus, &:active {
+				color: $secondary-color;
+			}
+		}
+	}
+
+	
+	@include breakpoint($small-only){
+		padding: 0;
+		
+		.menu-name-main-menu > .menu  {
+			border-top: 1px solid darken($primary-color, 10%);
+			background: rgba(darken($primary-color, 20), .9);
+			padding: 1em 0;	
+		}
+		
+		.menu {
+			font-size: 1.2rem;
+			
+			li { 
+				padding: 0 $column-gutter; 
+				
+				ul { display: none }
+			}		
+		}
+		
+	}
+	
+	@include breakpoint($medium-only){
+		.menu-name-main-menu > .menu  {
+			font-size: 1em;
+		}	
+		.menu {
+			float:right;
+			width: auto;
+		}
+	}
+	
+	@include breakpoint($medium-up){
 		position: absolute;
-		top:0;
-		bottom: 0;
-		left: .5 * $column-gutter;
-		right: .5 * $column-gutter;
-		border: 1px solid $border-color;
-		border-radius: 10px;
-		overflow: hidden;
-		background-position: center;
-		background-size: cover;
-		background-color: #fff; 
-		z-index: -1;
+		bottom: 2.5em;
+		right: 0;	
+			
+		.menu-name-main-menu > .menu  {			
+			> li {
+				float: left;
+				margin-right: 1em;
+				margin-bottom: 0;
+				width: auto;
+				
+				&:last-child { margin-right: none }
+			}
+		}
+		
+		.menu {
+			li {
+				display: block;
+				float: none;
+				position: relative;
+				padding-bottom: .5em;
+				top: .5em;
+				
+				ul { // 2nd level
+					display: none;
+					position: absolute;
+					top: 100%;
+					right: 0;
+					width: 150%;
+					text-align: right;
+					padding: 1em;
+					background: rgba(darken($primary-color, 20), .9);
+					font-size: 1rem;
+					line-height: 1.2em;
+					margin-bottom: 1em;
+					border-radius: 1em;
+					
+					// arrow up
+					&:before {
+						content: '';
+						display: block;
+						position: absolute;
+						top: -.5em;
+						right: 1em;
+						width: 0; 
+						height: 0; 
+						border-left: .5em solid transparent;
+						border-right: .5em solid transparent;
+						border-bottom: .5em solid rgba(darken($primary-color, 20), .9);	
+					}
+				}
+				&:hover > ul {
+					display: block;
+				}
+			} 
+		}
 	}
-	
-	h2, a {
-		color: lighten($body-font-color, 20%);
-	}
-	
-	a:focus, a:hover, a:active { color: $body-font-color }
-	
-	@include breakpoint($small-only) { margin-bottom: 1em }
 }
 
-#vata-portal:before { background-image: url("../images/vata-portal.png"); }
-#pitta-portal:before { background-image: url("../images/pitta-portal.png"); }
-#kapha-portal:before { background-image: url("../images/kapha-portal.png"); }
+a.nav-toggle {
+	display: none;
+	font-family: $header-font-family;
+	color: #fff;
+	font-size: 1.5em;
+	margin-bottom: .5em;
+	 -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+	
+	&:hover, &:focus, &:active { color: #fff; }
+	
+	@include breakpoint($small-only){
+		text-align: center;
+		display: block;	
+	}
+}
+
+// styles imported from original responsive-nav.css
+.nav-collapse {
+	
+	&.opened { max-height: 9999px }
+
+	ul {
+	  margin: 0;
+	  padding: 0;
+	  width: 100%;
+	  display: block;
+	  list-style: none;
+	}	
+	
+	li {
+	  width: 100%;
+	  display: block;
+	}
+	
+	.js & {
+	  clip: rect(0 0 0 0);
+	  max-height: 0;
+	  position: absolute;
+	  display: block;
+	  overflow: hidden;
+	  zoom: 1;
+	}
+	
+	@include breakpoint($medium-up){
+		.js & { position: relative; overflow: visible }
+		.js &.closed { max-height: none }
+	} 
+}
+
+aside .block {
+	border: 1px solid $border-color;
+	padding: .75em;
+	border-radius: 10px;
+	background: #fff;
+	margin-bottom: 1.5em;
+}
 
 // ------------------------------------------------------------
 // CLASSES FOR PAGE CONTENT
 // ------------------------------------------------------------
 
 .node {
+	padding-bottom: 2em;
 	
 	.half {
 		@extend .columns;
 		@extend .medium-6;
 	}
-	
+		
 	.third {
 		@extend .columns;
 		@extend .medium-4;	
+	}
+	
+	.small {
+		@extend .columns;
+		@extend .medium-5;	
 	}
 	
 	.row {
@@ -163,15 +326,30 @@ header {
 	img {
 		background: #fff;
 		padding: 5px;
-		border: 1px solid lighten($border-color, 20%);
+		border: 1px solid $border-color;
 		border-radius: 10px;
 	}
+	// images that aren't in a row but just floating one direction should float all the way
+	*:not(.row) { 	
+		> .left,
+		> .right {
+			img {
+			position:relative;
+			display: block;
+			margin: 0 auto; 	
+			}
+		}
+		
+		@include breakpoint($medium-up){
+			> .left img {  left: -.5 * $column-gutter }
+			> .right img { right: -.5 * $column-gutter }
+		}
+	}	
 	
 	figcaption {
+		@extend %reducedfontsize;
 		text-align: right;
 		font-style: italic;
-		font-size: .9em;
-		line-height: 1.25em;
 		margin: .5em 0 2em;
 	}
 	
@@ -193,10 +371,13 @@ header {
 			> &.left { margin-right: 1em }
 			> &.right { margin-left: 1em }	
 		}
-
 		
 		@include breakpoint($small-only) {
 			margin-bottom: 1.5em;
+		}
+		
+		cite {
+			text-align: right;
 		}
 	}
 	
@@ -215,20 +396,395 @@ header {
 			cursor: help;
 		}
 	}
+	
+	table {
+		@extend %reducedfontsize;
+		border: 1px solid $border-color;
+		width: 100%;
+		margin-top: 1.5em;
+		
+		td, th {
+			border: 1px solid $border-color;
+			padding: .5em;	
+		}
+	}
+	
+	hr {
+		border: none;
+		border-top: 1px dashed $border-color;
+		margin: 2em 0;
+	}
+}
+
+
+// ------------------------------------------------------------
+// single pages
+// ------------------------------------------------------------
+
+//frontpage, duh
+.front {
+	.node-teaser {
+		border-bottom: 1px dotted $border-color;
+		margin-bottom: 2em;
+		
+		.field-name-node-link {
+			text-align: right;
+			
+			a:after {
+				content: " »";
+			}
+		}
+	}	
+}
+
+// Dosha Portals
+.front .region-preface {
+	.block {
+		// careful, these are grid elements
+		position: relative;
+		padding: 1em 2em;
+		
+		&:before {
+			content: '';
+			position: absolute;
+			top:0;
+			bottom: 0;
+			left: .5 * $column-gutter;
+			right: .5 * $column-gutter;
+			border: 1px solid $border-color;
+			border-radius: 10px;
+			overflow: hidden;
+			background-position: center;
+			background-size: cover;
+			background-color: #fff; 
+			z-index: -1;
+		}
+		
+		h2 { margin-top: .5em }
+		
+		h2, a {
+			color: lighten($body-font-color, 20%);
+		}
+		
+		a:focus, a:hover, a:active { color: $body-font-color }
+		
+		@include breakpoint($small-only) { margin-bottom: 1em }
+	}	
+	
+	// needs to be the same breakpoint as javascript
+	@include breakpoint("#{screen} and (max-width: 730px)"){
+		width: 80%;
+		text-align: center;
+		margin: 0 auto;
+		
+		.slick-prev,
+		.slick-next {
+			position: absolute;
+			height: 4em;
+	    margin-top: -2em;
+	    overflow: hidden;
+	    position: absolute;
+	    top: 50%;
+	    width: 2em;
+	    background: none; 
+	    text-indent: 10em;
+	    color: darken($border-color, 20%);
+	    
+	    &:before {
+		    position: absolute;
+		    top: 0;
+		    left: 0;
+		    width: 90%;
+		    height: 100%;
+		    font-family: entypo;
+		    display: block;
+		    color: inherit;
+		    border-radius: 100em;
+		    font-size: 3em;
+		    line-height: 1.25em;
+		    text-indent: 0;
+	    }
+	    
+	    &:hover, &:active, &:focus { color: $primary-color }
+		}
+		.slick-prev {
+			left: -2em;
+			text-align: left;
+			&:before { content: "\e75d" } //left open	
+		}
+		.slick-next {
+			right: -2em;
+			text-align: right;
+			&:before { content: "\e75e" } // right open	
+		}
+		
+		.slick-dots {
+			margin: 0;
+			padding: 0;
+			
+			li { display: inline-block }
+			
+			button { 
+				background: $border-color;
+		    border-radius: 10em;
+		    display: block;
+		    height: 1em;
+		    margin: 0 0.5em;
+		    overflow: hidden;
+		    padding: 0;
+		    text-indent: 10em;
+		    width: 1em;
+			}
+			.slick-active button {
+			  background: darken($border-color, 20%);
+		  }
+		}
+	}
+	
+	@include breakpoint($medium-only) {
+		font-size: .9em;
+		line-height: 1.25em;
+	}
+
+	@include breakpoint($large-up) {
+		margin-bottom: 2em;
+		overflow: hidden;
+	}
+} 
+
+#vata-portal:before { background-image: url("../images/vata-portal.png"); }
+#pitta-portal:before { background-image: url("../images/pitta-portal.png"); }
+#kapha-portal:before { background-image: url("../images/kapha-portal.png"); }
+
+// Search block
+#block-search-form {
+	.form-item-search-block-form input {
+		margin-bottom: 0;
+		border-radius: 10px;
+		border-width: 2px;
+		border-color: darken($border-color, 20%);
+	}
+	
+	.container-inline {
+		position: relative;
+		
+		.form-actions {
+			position: absolute;
+			top: 0;
+			right: 0;
+			height: 100%;
+			border-radius: 10px;
+			width: 2em;
+			color: transparent;
+			
+			&:before {
+				@extend %icon-search;
+				color: darken($border-color, 20%);
+				position: absolute;
+				font-size: 1.5em;
+				padding-top: .25em;
+			}
+			&:hover:before {
+				color:$anchor-font-color;
+			}
+			
+			.form-submit {
+				position: absolute;
+				right: 0;
+				width: 100%;
+				overflow: hidden;
+				text-indent: 10em;	
+			}
+		}
+		
+		.form-submit {
+			background: none;
+		}
+	}
+}
+
+// Social icons block
+#social-icons-block {
+	padding: 0;
+	border: 0;
+	background: none;
+	overflow: hidden;
+	text-align: right;
+	margin-top: -1em;
+	
+	p { margin-bottom: 0 }
+	
+	.content a {
+		width: 12%;
+		overflow: hidden;
+		text-indent: 10em;
+		display: inline-block;
+		height: 2.25em;
+		white-space: nowrap;
+		position: relative;
+		border: 1px solid $border-color;
+		background: #fff;
+		border-radius: 5px;
+		color: darken($border-color, 20%);
+		margin-left: .25em;
+		
+		&:hover, &:focus, &:active {
+			color: $anchor-font-color;
+			border-color: $anchor-font-color;
+		}
+		
+		&:before {
+			position: relative;
+			display: block;
+			font-size: 1.25em;
+			line-height: 1.75em;
+			text-indent: 0;
+			width: 100%;
+			text-align: center;	
+		}
+	}
+	
+	.facebook:before { @extend %icon-facebook }
+	.twitter:before { @extend %icon-twitter }
+	.tumblr:before { @extend %icon-tumblr }
+	.google:before { @extend %icon-gplus }
+}
+
+// 6 Tastes
+#flavoroverview {	
+	// rotate the first td of every tr in the table body
+	tbody tr > td:first-child p {
+		transform: rotate(-90deg);
+		margin-bottom: 0;
+		margin-top: 70px;
+		width: 1em;	
+	}
+	
+	tbody tr > td[rowspan="2"]:last-child,
+	tbody tr > td[rowspan="2"]:nth-last-child(2) {
+		border-left: none;
+		border-right:none;
+	}
+	
+	img {
+		width: 100%;
+		min-width: 9em;
+	}
+}
+
+.page-node-2 .field-name-body {
+	.bal { background: #e0ffb3 }
+	.agg { background: #ffd699 }
+	
+	p.bal,
+	p.agg {
+		@extend %reducedfontsize;
+		width: 100%;
+		margin-bottom: 0;
+		max-width: 25em;
+		padding: .5em;
+		
+		span { font-family: 'Qlassik' }
+	}
+}
+
+#flavorsdoshas {
+	tr:first-child th { border:none }
+	
+	td {
+		text-align: center;
+		font-family: 'Qlassik';
+	}
+}
+
+// Getting started with diet
+.page-node-3 {
+	ol {
+		padding-left: 1.4em;
+		
+		ul { padding-left: 0 }
+	}
+	
+	ol > li {
+		list-style-type: none;
+		
+		h3 { 
+			background: url("../images/flower-icon.png") left center no-repeat;
+			background-size: auto 114%;
+			padding-left: 1.4em; 
+			margin-left: -1.4em;
+		}
+	}
+}
+
+// Ayurvedic Diet
+.page-node-4 {
+	
+}
+
+#foodcategories {
+	text-align: center;
+	margin-bottom: 1.5em;
+	
+	th { width: 5em }
+	
+	td {
+		padding: 0;
+		
+		div { 
+			float: left;
+			border-left: 1px dotted $border-color;
+			padding: .5em 0;
+			
+			&:first-child { border: none }
+		}
+	} 
+	
+	.gunas div { width: 33.33% }
+	.elements div { width: 20% }
+	.doshas div { width: 33.33% }
+	.tastes div { width: 16.66% }
+	.temperature div { width: 49.9% }
+	
+	// prevent table from breaking on small screens
+	@include breakpoint($small-only) {
+		.tastes div { 
+			width: 33.33%;
+			
+			&:nth-child(1), &:nth-child(2), &:nth-child(3) { border-bottom: 1px dotted $border-color }
+			
+			&:nth-child(4) { border-left: none } 
+		}	
+	}
+}
+
+
+// five elements
+.page-node-9 .field-name-body {
+	h3 { margin-top: 0.5em; }
+	
+	@include breakpoint($small-only){
+		.third {
+			width: 33.33%;
+			min-width:  10em;
+			float: right !important;
+			
+			img { left:0 }
+		}	
+	}
+	
 }
 
 // ------------------------------------------------------------
 // other stuff
 // ------------------------------------------------------------
-
 .qtip {
+	@extend %reducedfontsize;
 	background: #fff;
-	font-size: .9em;
-	line-height: 1.25em;
 	font-family: inherit;
 	border: 1px solid $border-color;
 	border-radius: 1em;
-	box-shadow: 1px 1px 5px 0 rgba($border-color, 10%);
+	box-shadow: 1px 1px 5px 0 rgba($border-color, 10);
 }
 .qtip-titlebar {
 	background-color: #eee !important;

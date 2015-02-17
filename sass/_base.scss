@@ -21,7 +21,8 @@ body {
 	@include adjust-font-size-to($base-font-size);
 	@include establish-baseline;
 	color: $body-font-color;
-  background: $body-bg ;
+  background: $body-bg;
+  min-width: 320px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -30,6 +31,8 @@ h1, h2, h3, h4, h5, h6 {
 	color: $header-font-color;
 	letter-spacing: -.5px;
 	line-height: 1em !important;
+	
+	&:first-child { margin-top: 0 }
 }
 
 h1 { @include adjust-to-scale(4) } 
@@ -118,8 +121,7 @@ select,
 textarea {
   padding: .5em .6em;
   display: inline-block;
-  border: 1px solid #ccc;
-  border-bottom: 1px dashed #333; 
+  border: 1px solid $border-color;
   font-size: .8em;
   box-shadow: none;
   width: 100%;
@@ -128,8 +130,15 @@ textarea {
   
   @include vendor(transition, .3s linear border);
   &:focus {
-    border-color: $anchor-font-color	;
+    border-color: darken($border-color, 10%);
   }
+  
+  &::-webkit-input-placeholder,
+  &:-moz-placeholder,
+  &::-moz-placeholder,
+  &:-ms-input-placeholder {  
+   color: red;  
+	}
 }
 fieldset {
   margin-bottom: rhythm(4);
