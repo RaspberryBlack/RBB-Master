@@ -2618,7 +2618,8 @@ body {
   font-size: 1em;
   line-height: 1.5em;
   color: #222;
-  background: #FFF; }
+  background: #FFF;
+  min-width: 320px; }
   body html {
     font-size: 100%;
     line-height: 0.5em; }
@@ -2757,7 +2758,6 @@ textarea {
   padding: .5em .6em;
   display: inline-block;
   border: 1px solid #ccc;
-  border-bottom: 1px dashed #333;
   font-size: .8em;
   box-shadow: none;
   width: 100%;
@@ -3088,5 +3088,29 @@ table.table-unstyled {
     margin: 0 auto;
     max-width: 400px;
     text-align: center; }
+
+.navigation .menu-open,
+.navigation .menu-close {
+  display: none;
+  font-size: 1.5em;
+  margin-bottom: .5em;
+  text-align: center;
+  position: absolute;
+  width: 100%; }
+@media only screen and (max-width: 40em) {
+  .navigation nav {
+    margin-top: 2em;
+    overflow: hidden;
+    transition: max-height .5s linear; }
+  .navigation:not(:target) .menu-open {
+    display: block; }
+  .navigation:not(:target) nav {
+    max-height: 0; }
+  .navigation:target .menu-open, .navigation.open .menu-open {
+    display: none; }
+  .navigation:target .menu-close, .navigation.open .menu-close {
+    display: block; }
+  .navigation:target nav, .navigation.open nav {
+    max-height: 20em; } }
 
 /*# sourceMappingURL=style.css.map */

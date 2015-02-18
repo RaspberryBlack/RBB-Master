@@ -1,0 +1,41 @@
+//------------------------------------------------------------------------------
+// MENU
+.navigation {
+		
+	// toggle buttons
+	.menu-open,
+	.menu-close {
+		display: none;
+		font-size: 1.5em;
+		margin-bottom: .5em;
+		text-align: center;
+		position: absolute;
+		width: 100%;
+	}
+
+	@include breakpoint($small-only){
+		nav { 
+			margin-top: 2em;
+			overflow: hidden;
+			transition: max-height .5s linear;
+		}
+		
+		// menu closed by default
+		&:not( :target ){
+			.menu-open { display: block }
+			nav { max-height: 0 }	
+		}
+		
+		// menu open
+		&:target,
+		&.open {
+			.menu-open { display: none }
+			.menu-close { display: block }
+			
+			// max-height can be css-transitioned, 
+			// just keep it as close to the actually needed value as possible
+			nav { max-height: 20em } 			
+		}
+	}
+	
+}

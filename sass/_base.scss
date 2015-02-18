@@ -21,7 +21,8 @@ body {
 	@include adjust-font-size-to($base-font-size);
 	@include establish-baseline;
 	color: $body-font-color;
-  background: $body-bg ;
+  background: $body-bg;
+  min-width: 320px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -137,8 +138,7 @@ select,
 textarea {
   padding: .5em .6em;
   display: inline-block;
-  border: 1px solid #ccc;
-  border-bottom: 1px dashed #333; 
+  border: 1px solid $border-color;
   font-size: .8em;
   box-shadow: none;
   width: 100%;
