@@ -37,6 +37,18 @@
 		return this;
 	};
 	
+	// window resize end event
+	$(window).bind('resize', function(e) {
+    window.resizeEvt;
+    $(window).resize(function() {
+        clearTimeout(window.resizeEvt);
+        window.resizeEvt = setTimeout(function() {
+           
+					$(window).trigger('EndOfResize');
+           
+        }, 500);
+    });
+	});
 	
 // ----------------------------------------------------------------------------
   $(document).ready(function(){
@@ -46,25 +58,17 @@
 		e.preventDefault();
 	    $(this).parent().fadeOut('slow');
 	});	
-
-	// Clear input field value on focus and restore if no value was entered
-	$('input[type="text"],input[type="email"]').focus(function() {
-		if( this.value === this.defaultValue ) {
-			this.value = "";
-		}
-	}).blur(function() {
-		if( !this.value.length ) {
-			this.value = this.defaultValue;
-		}
-	});
   
-  // responsive navigation
-  var nav = responsiveNav("#main-menu", {
-	   label: "☰ <span>Menu</span>"
-  });
+  
+  // Mobile Menu
+	$('.menu-open, .menu-close').click(function(e) {
+		e.preventDefault();
+		$('header .navigation').toggleClass('open');
+	});
   
   // touch friendly navigation
   $( '.menu-name-main-menu li:has(ul)' ).doubleTapToGo();
+	
 	
 	// let placeholders disappear on focus
 	$('input, textarea').each(function(){
@@ -73,6 +77,36 @@
          .focus(function(){$this.removeAttr('placeholder');})
          .blur(function(){$this.attr('placeholder', $this.data('placeholder'));});
 	});
+	
+	
+	// rearrange search & social icons on mobile
+	$('#block-search-form').clone().attr('block-search-form','block-search-form-2').appendTo('#block-menu-block-1 .menu-block-1');
+	$('#social-icons-block').clone().attr('social-icons-block','social-icons-block-2').appendTo('#block-menu-block-1 .menu-block-1');
+		
+	// at the end of every resize, check if we're in mobile layout
+	/*
+$(window).on('EndOfResize', function(e){
+		
+		if( // we're mobile either menu-open or -close is visible
+			$('.menu-open').css('display') != 'none' ||
+			$('.menu-close').css('display') != 'none'
+		) {
+			// if we haven't moved it already
+			if( movingContent.parent('.region-sidebar-second') ){
+				movingContent.appendTo('#block-menu-block-1 .menu-block-1 > ul');
+				//nav.resize();
+			}
+		
+		} else { // if desktop
+			// if we need to move it back
+			if( movingContent.parent('#block-menu-block-1 .menu-block-1') ){
+				movingContent.prependTo('.region-sidebar-second');
+			}
+				
+		}
+	});
+*/
+
 	
 	// Slick slider
 	$('.region-preface').slick({
@@ -90,6 +124,7 @@
 	  	
   	]  
   });
+  
   
   // add qTips to lexicon terms
 	$('.lexicon-term').click(function(e){

@@ -132,6 +132,8 @@ header {
 	.menu {
 		font-family: $header-font-family;
 		padding: 0;
+		width: auto;
+		margin-bottom: 0;
 		
 		a { 
 			color:#fff;
@@ -141,19 +143,56 @@ header {
 			}
 		}
 	}
-
 	
+	// toggle buttons
+	.menu-open,
+	.menu-close {
+		display: none;
+		font-family: $header-font-family;
+		color: #fff;
+		font-size: 1.5em;
+		margin-bottom: .5em;
+		text-align: center;
+		position: absolute;
+		width: 100%;
+	}
+
+	// mobile
 	@include breakpoint($small-only){
 		padding: 0;
 		
+		.menu-block-1 {
+			background: rgba(darken($primary-color, 20), .9);
+			
+			#block-search-form {
+				margin: -.5em $column-gutter 0;
+				.form-type-textfield input { max-width: 100% }	
+			}
+			
+			#social-icons-block {
+				margin: .5em $column-gutter 0;
+				
+				.content a {
+					border: none;
+					background: none;
+					color: #fff;
+					width: 10%;
+					
+					&:hover, &:focus, &:active {
+						color: $secondary-color;
+					}
+				}
+			} 
+		}
+		
 		.menu-name-main-menu > .menu  {
 			border-top: 1px solid darken($primary-color, 10%);
-			background: rgba(darken($primary-color, 20), .9);
 			padding: 1em 0;	
 		}
 		
 		.menu {
 			font-size: 1.2rem;
+			margin-bottom: 0;
 			
 			li { 
 				padding: 0 $column-gutter; 
@@ -162,22 +201,46 @@ header {
 			}		
 		}
 		
-	}
-	
-	@include breakpoint($medium-only){
-		.menu-name-main-menu > .menu  {
-			font-size: 1em;
-		}	
-		.menu {
-			float:right;
-			width: auto;
+		nav { 
+			margin-top: 2em;
+			overflow: hidden;
+			transition: max-height .5s linear;
+		}
+		
+		// menu closed by default
+		&:not( :target ){
+			.menu-open { display: block }
+			nav { max-height: 0 }	
+		}
+		
+		// menu open
+		&:target,
+		&.open {
+			.menu-open { display: none }
+			.menu-close { display: block }
+			
+			// max-height can be css-transitioned, 
+			// just keep it as close to the actually needed value as possible
+			nav { max-height: 20em } 			
 		}
 	}
 	
+	// tablet
+	@include breakpoint($medium-only){
+		.menu-name-main-menu > .menu  {
+			font-size: 1em;
+			float:right;
+		}	
+	}
+	
+	//desktop
 	@include breakpoint($medium-up){
 		position: absolute;
 		bottom: 2.5em;
-		right: 0;	
+		right: 0;
+		
+		#block-search-form, 
+		#social-icons-block { display: none }	
 			
 		.menu-name-main-menu > .menu  {			
 			> li {
@@ -186,7 +249,7 @@ header {
 				margin-bottom: 0;
 				width: auto;
 				
-				&:last-child { margin-right: none }
+				&:last-child { margin-right: 0 }
 			}
 		}
 		
@@ -234,67 +297,20 @@ header {
 	}
 }
 
-a.nav-toggle {
-	display: none;
-	font-family: $header-font-family;
-	color: #fff;
-	font-size: 1.5em;
-	margin-bottom: .5em;
-	 -webkit-tap-highlight-color: rgba(0,0,0,0);
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  -o-user-select: none;
-  user-select: none;
-	
-	&:hover, &:focus, &:active { color: #fff; }
+aside {
+	.block {
+		border: 1px solid $border-color;
+		padding: .75em;
+		border-radius: 10px;
+		background: #fff;
+		margin-bottom: 1.5em;
+	}
 	
 	@include breakpoint($small-only){
-		text-align: center;
-		display: block;	
+		#block-search-form, 
+		#social-icons-block { display: none }	
 	}
-}
 
-// styles imported from original responsive-nav.css
-.nav-collapse {
-	
-	&.opened { max-height: 9999px }
-
-	ul {
-	  margin: 0;
-	  padding: 0;
-	  width: 100%;
-	  display: block;
-	  list-style: none;
-	}	
-	
-	li {
-	  width: 100%;
-	  display: block;
-	}
-	
-	.js & {
-	  clip: rect(0 0 0 0);
-	  max-height: 0;
-	  position: absolute;
-	  display: block;
-	  overflow: hidden;
-	  zoom: 1;
-	}
-	
-	@include breakpoint($medium-up){
-		.js & { position: relative; overflow: visible }
-		.js &.closed { max-height: none }
-	} 
-}
-
-aside .block {
-	border: 1px solid $border-color;
-	padding: .75em;
-	border-radius: 10px;
-	background: #fff;
-	margin-bottom: 1.5em;
 }
 
 // ------------------------------------------------------------
@@ -467,8 +483,6 @@ aside .block {
 		}
 		
 		a:focus, a:hover, a:active { color: $body-font-color }
-		
-		@include breakpoint($small-only) { margin-bottom: 1em }
 	}	
 	
 	// needs to be the same breakpoint as javascript
@@ -476,6 +490,8 @@ aside .block {
 		width: 80%;
 		text-align: center;
 		margin: 0 auto;
+		
+		.block { margin-bottom: 1em }
 		
 		.slick-prev,
 		.slick-next {

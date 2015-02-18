@@ -11,11 +11,13 @@
         </a>
     </div>
 		
-		<div class="navigation medium-8 columns">
+		<div class="navigation medium-8 columns" id="nav">
 			<?php if($page['navigation']): ?>
+				<a href="#nav" class="menu-open"><span>≡</span> Menu</a>
 				<nav id="main-menu" role="navigation" tabindex="-1" class="medium-8 small-12 columns">
 					<?php print render($page['navigation']); ?>
 				</nav>
+				<a href="#top" class="menu-close"><span>x</span> close</a>
 			<?php endif; ?>
 		</div>
 
