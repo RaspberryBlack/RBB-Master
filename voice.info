@@ -11,7 +11,8 @@ stylesheets[all][] = css/style.css
 
 ; scripts =========================
 
-scripts[] = js/script.js
+; scripts[] = js/script.js
+; add them in template.php
 
 ; regions =========================
 

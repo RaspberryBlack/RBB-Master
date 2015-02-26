@@ -11,6 +11,17 @@ $settings = array(
 );
 drupal_add_css($link, $settings);
 
+/**
+ * Import theme js
+ */
+$link = drupal_get_path('theme', 'voice') .'/js/script.js';
+$settings = array(
+	'scope' => 'footer',
+	'group' => JS_THEME,
+);
+drupal_add_js($link, $settings);
+
+
 function voice_css_alter(&$css) {
   // Remove system css files.
   unset($css[drupal_get_path('module', 'system') . '/system.menus.css']);
