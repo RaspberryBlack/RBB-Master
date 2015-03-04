@@ -3,7 +3,7 @@ description = base theme for all my themes
 package = Core
 version = 1.0
 core = 7.x
-;screenshot = images/captovate/screenshot.png
+
 
 ; stylesheets =========================
 stylesheets[all][] = css/login.css
@@ -11,7 +11,8 @@ stylesheets[all][] = css/style.css
 
 ; scripts =========================
 
-scripts[] = js/script.js
+; scripts[] = js/script.js
+; add them in template.php
 
 ; regions =========================
 

@@ -11,6 +11,17 @@ $settings = array(
 );
 drupal_add_css($link, $settings);
 
+/**
+ * Import theme js
+ */
+$link = drupal_get_path('theme', 'rbbmaster') .'/js/script.js';
+$settings = array(
+	'scope' => 'footer',
+	'group' => JS_THEME,
+);
+drupal_add_js($link, $settings);
+
+
 function rbbmaster_css_alter(&$css) {
   // Remove system css files.
   unset($css[drupal_get_path('module', 'system') . '/system.menus.css']);
