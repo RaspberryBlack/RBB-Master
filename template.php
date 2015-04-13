@@ -48,6 +48,8 @@ function rbbmaster_preprocess_html(&$variables) {
     }
     $variables['classes_array'][] = drupal_html_class('section-' . $section);
   }
+  
+  $variables['favicons'] = '/' . drupal_get_path('theme', 'rbbmaster') . '/images/favicons';
 }
 
 function rbbmaster_preprocess_page(&$variables) {

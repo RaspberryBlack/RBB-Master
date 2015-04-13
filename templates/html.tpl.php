@@ -42,13 +42,31 @@
  *
  * @ingroup themeable
  */
-?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
-  "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php print $language->language; ?>" version="XHTML+RDFa 1.0" dir="<?php print $language->dir; ?>"<?php print $rdf_namespaces; ?>>
+?><!DOCTYPE html>
+<html lang="<?php print $language->language; ?>" dir="<?php print $language->dir; ?>"<?php print $rdf_namespaces; ?>>
 
 <head profile="<?php print $grddl_profile; ?>">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <?php print $head; ?>
+  
+  <?php // generated with http://realfavicongenerator.net ?>
+  <link rel="apple-touch-icon" sizes="57x57" href="<?php print $favicons ?>/apple-touch-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="<?php print $favicons ?>/apple-touch-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="<?php print $favicons ?>/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="<?php print $favicons ?>/apple-touch-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="<?php print $favicons ?>/apple-touch-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="<?php print $favicons ?>/apple-touch-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="<?php print $favicons ?>/apple-touch-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="<?php print $favicons ?>/apple-touch-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="<?php print $favicons ?>/apple-touch-icon-180x180.png">
+	<link rel="icon" type="image/png" href="<?php print $favicons ?>/favicon-32x32.png" sizes="32x32">
+	<link rel="icon" type="image/png" href="<?php print $favicons ?>/android-chrome-192x192.png" sizes="192x192">
+	<link rel="icon" type="image/png" href="<?php print $favicons ?>/favicon-96x96.png" sizes="96x96">
+	<link rel="manifest" href="<?php print $favicons ?>/manifest.json">
+	<meta name="msapplication-TileColor" content="#9f00a7">
+	<meta name="msapplication-TileImage" content="<?php print $favicons ?>/mstile-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+  
   <title><?php print $head_title; ?></title>
   <?php print $styles; ?>
   <?php print $scripts; ?>
