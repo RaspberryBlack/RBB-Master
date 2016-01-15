@@ -14,7 +14,7 @@ drupal_add_css($link, $settings);
 /**
  * Import theme js
  */
-$link = drupal_get_path('theme', 'rbb') .'/js/script.min.js';
+$link = drupal_get_path('theme', 'rbb') .'/dist/scripts.min.js';
 $settings = array(
 	'scope' => 'footer',
 	'group' => JS_THEME,
@@ -119,19 +119,21 @@ function rbb_status_messages($variables) {
   );
 
   $status_class = array(
-    'status' => 'status',
-    'error' => 'error',
+    'status' => 'success',
     'warning' => 'warning',
+    'error' => 'alert',
     // Not supported, but in theory a module could send any type of message.
     // @see drupal_set_message()
     // @see theme_status_messages()
-    'info' => 'info',
+    'info' => 'secondary',
   );
 
   foreach (drupal_get_messages($display) as $type => $messages) {
     $class = (isset($status_class[$type])) ? $status_class[$type] : '';
-    $output .= "<div class=\"alert $class\">\n";
-    $output .= "  <a class=\"close\" href=\"#\">&times;</a>\n";
+    $output .= "<div class=\"callout $class\">";
+    $output .= '  <button class="close-button" aria-label="Close alert" type="button">';
+    $output .= '		<span aria-hidden="true">&times;</span>';
+    $output .= '	</button>';
 
     if (!empty($status_heading[$type])) {
       $output .= '<h4 class="element-invisible">' . $status_heading[$type] . "</h4>\n";

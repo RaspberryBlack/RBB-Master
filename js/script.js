@@ -2,9 +2,9 @@
   $(document).ready(function(){
     
 	// Close button for Drupal messages
-	$(".alert .close").click(function(e) {
+	$(".callout .close-button").click(function(e) {
 		e.preventDefault();
-	    $(this).parent().fadeOut('slow');
+	    $(this).parent().fadeOut();
 	});	
 
 	// Mobile Menu

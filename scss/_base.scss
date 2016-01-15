@@ -64,50 +64,6 @@
 }
 */
 
-/* == Messages ============================= */
-
-.alert {
-    padding: 1em 2em 1em 1em;
-    position: relative;
-    margin-bottom: rhythm(4);
-    color: #fff;
-  .close {    
-      color: #fff;
-      font-size: 30px;
-      position: absolute;
-      right: 0.5em;
-      top: 0.5em;      
-      display: block;
-      height: 30px;
-      width: 30px;
-      line-height: 30px;
-      text-decoration: none;
-      text-align: center;
-      border-radius: 50%;
-      background: rgba(0,0,0,0.1);
-      &:hover {
-        background: rgba(0,0,0,0.2);
-      }
-  }
-  &.info {
-    background: #5BC0DE;
-  }
-  &.error {
-    background: #D9534F;        
-  }
-  &.warning {
-    background: #5CB85C;    
-  }
-  &.status {
-    background: #5CB85C;
-  }
-}
-.alert > *:last-child,
-.alert > *:last-child > *:last-child,
-.alert > *:last-child > *:last-child > *:last-child {
-  margin-bottom: 0;
-}
-
 /* == Pagination ============================= */
 .pager {
 	padding: 0;
