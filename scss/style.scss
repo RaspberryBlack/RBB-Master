@@ -65,6 +65,12 @@
   $white: #fefefe;
   $body-background: $white;
   $body-font-color: $black;
+  
+  $button-fill: solid;
+	$button-background: $primary-color;
+	$button-background-hover: scale-color($button-background, $lightness: -15%);
+	$button-color: #fff;
+	$button-color-alt: #000;
 
   // 2. The Grid
   // -----------
@@ -136,15 +142,15 @@
   @include foundation-global-styles;
   @include foundation-grid;
   @include foundation-typography;
-//  @include foundation-button;
-//  @include foundation-forms;
+	@include foundation-button;
+	@include foundation-forms;
 //  @include foundation-visibility-classes;
 //  @include foundation-float-classes;
 //  @include foundation-accordion;
 //  @include foundation-accordion-menu;
 //  @include foundation-badge;
 //  @include foundation-breadcrumbs;
-//  @include foundation-button-group;
+	@include foundation-button-group;
 //  @include foundation-callout;
 //  @include foundation-close-button;
 //  @include foundation-drilldown-menu;

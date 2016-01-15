@@ -37,6 +37,12 @@
   }
 }
 
+%invisible {
+  position: absolute !important;
+  clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
 // create placeholders for all icon classes
 // for reference: http://gumbyframework.com/docs/ui-kit/#!/icons
 // use like:

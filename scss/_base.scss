@@ -24,6 +24,16 @@
 
 /* == Tabs ============================= */
 
+.tabs {
+	list-style-type: none;	
+	
+	li {
+		@extend .button;
+		@extend .hollow;
+		margin-right: 5px;
+	}
+}
+
 /*
 .tabs {
   display: inline-block;
@@ -331,24 +341,48 @@ table.table-unstyled {
   }
 }
 
+/* == Forms ============================= */
+
+// hide the honeypot
+.form-item-leaveblank{
+	@extend %invisible;
+}
+
+.form-actions {
+	input[type="submit"],
+	input[type="button"] {
+		@extend .button;
+	}
+}
+
 /* == Login page ============================= */
 
 .page-user {
-  background: #f2f2f2;
-  .login-form {
-    background: #fff;
-    max-width: 400px;
-    margin: 40px auto 0;
-    padding: 20px;
-    border: 1px solid #ccc;
-    box-shadow: 0 0 5px #ccc;
-    h1 {
-      text-align: center;
-    }
-  }
-  .login-footer {
-    margin: 0 auto;
-    max-width: 400px;
-    text-align: center;
-  }
+	background-color: $light-gray;
+	
+	.login-form {
+	  @include grid-row();
+	 
+	  border: 1px solid $medium-gray;
+	  background-color: $white;
+	  margin: 2em auto 0;
+	  width: 50%;
+	  max-width: 30em;
+	  min-width: 30em;
+	  padding: 1em;
+	  box-shadow: 1px 1px 5px rgba($black, .2);
+	}
+	
+	label {
+		font-size: $rem-base;
+	}
+	
+	.description {
+		font-size: $small-font-size;
+		margin-top: -1em;
+	}
+	
+	.form-item {
+		margin-bottom: 1em;
+	}
 }

@@ -1,7 +1,7 @@
 <div class="login-form">
 	<h1 id="main-content" class="title">
 		<?php if ($logo): ?>
-			<img src="<?php print $logo; ?>" alt="<?php print t('Login to your website'); ?>" />
+			<img style="margin:.25em 0 .5em" alt="Login" class="site-logo" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
 		<?php else: print 'Login to' . $site_name;
 		endif; ?>
 	</h1>
@@ -19,9 +19,9 @@
 	<?php print render($page['content']); ?>
 </div>	
 <div class="login-footer">
-	<p class="captovate-link">
-		<a href="http://www.captovate.com.au" title="Website design and development by Captovate">
-			<img src="/sites/all/themes/captovate77/images/captovate/captovate-logo-footer.png" alt="Captovate logo"/>
+	<p class="bb-link">
+		<a href="http://www.bigbosswebsites.com.au" title="Website design and development by Big Boss Websites">
+			<img alt="Big Boss Websites" class="footer-logo" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
 		</a>
 	</p>
 </div>
