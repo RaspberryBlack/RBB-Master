@@ -1,0 +1,182 @@
+// ------------------------------------------------------------
+// style.scss
+//
+// This file shouldn't directly contain any SCSS code, instead
+// it only serves to combine the SCSS contained in other Sass
+// partials through @import directives.
+//
+//  * UTILS........... Functions, Mixins, Placeholders...
+//  * LAYOUT.......... The macro layout & grid system
+//  * BASE............ Sitewide html elements, typography
+//  * THEME........... Styles custom to this theme
+//
+//  FOUNDATION:
+//  for more settings, check foundation/scss/settings.scss
+//
+// ------------------------------------------------------------
+
+// Make sure the charset is set appropriately
+@charset "UTF-8";
+
+// Import fonts
+/*
+@include font-face("entypo", font-files("icons/entypo.woff", "icons/entypo.ttf"), "icons/entypo.eot",
+	$weight: normal,
+	$style: normal
+);
+*/
+
+/* 	@font-face browser support according to caniuse.com
+*		.eot 				> IE8+
+		.eot?#iefix > IE6-IE8
+		.woff2			> super modern browsers (leave out for now)
+*		.woff				> pretty modern browsers
+		.ttf				> Safari, Android, iOS (leave out when having .woff)
+*		.svg#svgFontName > legacy iOS, Opera mini
+*/ 
+
+/*
+@include font-face("icomoon", font-files("icomoon/icomoon.woff", "icomoon/icomoon.svg#icomoon"), "icomoon/icomoon.eot",
+	$weight: normal,
+	$style: normal
+);
+*/
+
+// ------------------------------------------------------------
+// THEME VARIABLES
+// ------------------------------------------------------------
+
+// import default foundation vars
+@import '../foundation/bower_components/foundation-sites/scss/settings/settings';
+
+// override select foundation vars
+
+  // 1. Colours
+  // ---------
+
+  $global-width: rem-calc(1200);
+  $global-font-size: 100%;
+  $global-lineheight: 1.5;
+
+  $primary-color: #ed1846;
+  $secondary-color: #777;
+
+  $black: #0a0a0a;
+  $white: #fefefe;
+  $body-background: $white;
+  $body-font-color: $black;
+
+  // 2. The Grid
+  // -----------
+
+  $breakpoints: (
+    small: 0,
+    medium: 640px,
+    large: 1024px,
+    xlarge: 1200px,
+    xxlarge: 1440px,
+  );
+  $breakpoint-classes: (small medium large);
+
+  $grid-row-width: $global-width;
+  $grid-column-count: 12;
+  $grid-column-gutter: 30px;
+  $block-grid-max: 6;
+
+  // 3. Typography
+  // ------------------
+
+  $global-weight-normal: normal;
+  $global-weight-bold: bold;
+  $global-radius: 0;
+  $rem-base: 16px;
+
+  $body-font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;
+  $header-font-family: $body-font-family;
+  $header-font-weight: $global-weight-normal;
+  $header-font-style: normal;
+  $font-family-monospace: Consolas, 'Liberation Mono', Courier, monospace;
+  $header-sizes: (
+    small: (
+      'h1': 24,
+      'h2': 20,
+      'h3': 19,
+      'h4': 18,
+      'h5': 17,
+      'h6': 16,
+    ),
+    medium: (
+      'h1': 48,
+      'h2': 40,
+      'h3': 31,
+      'h4': 25,
+      'h5': 20,
+      'h6': 16,
+    ),
+  );
+  $header-color: inherit;
+  $header-lineheight: 1.4;
+  $header-margin-bottom: 0.5rem;
+  $paragraph-lineheight: 1.6;
+  $paragraph-margin-bottom: 1rem;
+
+  $anchor-color: $primary-color;
+  $anchor-color-hover: scale-color($anchor-color, $lightness: -14%);
+
+
+// ------------------------------------------------------------
+// SELECTIVE FOUNDATION IMPORT
+// ------------------------------------------------------------
+
+@import '../foundation/bower_components/foundation-sites/scss/foundation';
+//@import '../foundation/bower_components/motion-ui/src/motion-ui';
+
+//  @include foundation-everything;
+
+  @include foundation-global-styles;
+  @include foundation-grid;
+  @include foundation-typography;
+//  @include foundation-button;
+//  @include foundation-forms;
+//  @include foundation-visibility-classes;
+//  @include foundation-float-classes;
+//  @include foundation-accordion;
+//  @include foundation-accordion-menu;
+//  @include foundation-badge;
+//  @include foundation-breadcrumbs;
+//  @include foundation-button-group;
+//  @include foundation-callout;
+//  @include foundation-close-button;
+//  @include foundation-drilldown-menu;
+//  @include foundation-dropdown;
+//  @include foundation-dropdown-menu;
+//  @include foundation-flex-video;
+//  @include foundation-label;
+//  @include foundation-media-object;
+//  @include foundation-menu;
+//  @include foundation-off-canvas;
+//  @include foundation-orbit;
+//  @include foundation-pagination;
+//  @include foundation-progress-bar;
+//  @include foundation-slider;
+//  @include foundation-sticky;
+//  @include foundation-reveal;
+//  @include foundation-switch;
+//  @include foundation-table;
+//  @include foundation-tabs;
+//  @include foundation-thumbnail;
+//  @include foundation-title-bar;
+//  @include foundation-tooltip;
+//  @include foundation-top-bar;
+
+//  @include motion-ui-transitions;
+//  @include motion-ui-animations;
+
+// ------------------------------------------------------------
+// IMPORT STYLESHEETS
+// ------------------------------------------------------------
+
+@import "utils",
+        "layout",
+        "base",
+        "theme";

@@ -6,12 +6,11 @@ core = 7.x
 
 
 ; stylesheets =========================
-stylesheets[all][] = css/login.css
-stylesheets[all][] = css/style.css
+stylesheets[all][] = dist/style.min.css
 
 ; scripts =========================
 
-; scripts[] = js/script.js
+; scripts[] = dist/script.js
 ; add them in template.php
 
 ; regions =========================

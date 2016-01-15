@@ -1,6 +1,6 @@
-<div class="main row">
+<div class="main">
   
-  <main role="main" id="main-content" class="columns"> <?php //don't remove main-content id; necessary for skip-link ?>
+  <main role="main" id="main-content"> <?php //don't remove main-content id; necessary for skip-link ?>
     <?php print render($title_prefix); ?>
     <?php if ($title): ?>
      <h1><?php print $title; ?></h1>
@@ -25,13 +25,13 @@
   </main>
 
   <?php if($page['sidebar_first']): ?>
-    <aside class="columns sidebar first">
+    <aside class="sidebar first">
     <?php print render($page['sidebar_first']); ?>
     </aside>
   <?php endif; ?>
 
   <?php if($page['sidebar_second']): ?>
-    <aside class="columns sidebar second">
+    <aside class="sidebar second">
       <?php print render($page['sidebar_second']); ?>
     </aside>
   <?php endif; ?>

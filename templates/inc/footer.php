@@ -1,3 +1,3 @@
-<footer class="row">
+<footer>
   <?php print render($page['footer']); ?>
 </footer>

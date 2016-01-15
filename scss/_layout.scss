@@ -1,0 +1,17 @@
+// ------------------------------------------------------------
+// layout.scss
+// macro arrangement of a web page, including any grid systems
+// ------------------------------------------------------------
+
+
+header {
+  @include grid-row;
+}
+
+.main {
+  @include grid-row;
+}
+
+footer {
+  @include grid-row;
+}

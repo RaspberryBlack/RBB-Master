@@ -1,1 +1,0 @@
-(function(e){e(document).ready(function(){e(".alert .close").click(function(t){t.preventDefault();e(this).parent().fadeOut("slow")});e('input[type="text"],input[type="email"]').focus(function(){this.value==this.defaultValue&&(this.value="")}).blur(function(){this.value.length||(this.value=this.defaultValue)})})})(jQuery);
