@@ -85,12 +85,3 @@
     &:after{ content: ''; left: 100% }  
   }
 }
-
-// Breakpoints, use like this:
-//	.some-class { @include breakpoint(small) { width: 60%; } }
-//	.some-class { @include breakpoint(small, 'ie') { width: 60%; } }
-@mixin breakpoint($bpoint, $ie:false) {
-  @media #{$bpoint} { @content; }
-  // @media #{$small-up} { }
-  @if $ie { .oldie & { @content; }  }
-}

@@ -10,7 +10,7 @@
 	// Mobile Menu
 	$('.menu-open, .menu-close').click(function(e) {
 		e.preventDefault();
-		$('header .navigation').toggleClass('open');
+		$('#nav').toggleClass('open');
 	});
 
 	// Clear input field value on focus and restore if no value was entered

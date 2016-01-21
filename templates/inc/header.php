@@ -20,7 +20,7 @@
       <?php print render($page['global_search']); ?>
   </div> -->
 
-	<div class="navigation" id="nav">
+	<div class="top-bar" id="nav">
 		<?php if($page['navigation']): ?>
 			<a href="#nav" class="menu-open"><span>≡</span> Menu</a>
 			<nav id="main-menu" role="navigation" tabindex="-1">
