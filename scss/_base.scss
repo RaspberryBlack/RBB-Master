@@ -25,44 +25,21 @@
 /* == Tabs ============================= */
 
 .tabs {
-	list-style-type: none;	
+	list-style-type: none;
+	
+	ul {
+		border-bottom: 1px solid $primary-color;	
+		margin-bottom: 2rem;	
+	}
 	
 	li {
 		@extend .button;
 		@extend .hollow;
 		margin-right: 5px;
+		margin-bottom: -1px;
+		padding: .5em 1em;
 	}
 }
-
-/*
-.tabs {
-  display: inline-block;
-}
-
-.tabs.primary {  
-  @include horizontal-list;
-  margin-bottom: rhythm(4);
-  li {
-    margin: 0 1px 0 0;
-    padding: 0;
-
-  }  
-  a {
-    padding: 10px 15px;
-    display: block;
-    float: left;
-    background: #f2f2f2;
-    color: #333;
-    &.active {
-      background: #e9e9e9;  
-    }
-    &:hover {
-      background: $anchor-color-hover;
-      color: #fff;
-    }
-  }
-}
-*/
 
 /* == Pagination ============================= */
 .pager {
