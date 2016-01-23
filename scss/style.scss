@@ -18,30 +18,6 @@
 // Make sure the charset is set appropriately
 @charset "UTF-8";
 
-// Import fonts
-/*
-@include font-face("entypo", font-files("icons/entypo.woff", "icons/entypo.ttf"), "icons/entypo.eot",
-	$weight: normal,
-	$style: normal
-);
-*/
-
-/* 	@font-face browser support according to caniuse.com
-*		.eot 				> IE8+
-		.eot?#iefix > IE6-IE8
-		.woff2			> super modern browsers (leave out for now)
-*		.woff				> pretty modern browsers
-		.ttf				> Safari, Android, iOS (leave out when having .woff)
-*		.svg#svgFontName > legacy iOS, Opera mini
-*/ 
-
-/*
-@include font-face("icomoon", font-files("icomoon/icomoon.woff", "icomoon/icomoon.svg#icomoon"), "icomoon/icomoon.eot",
-	$weight: normal,
-	$style: normal
-);
-*/
-
 // ------------------------------------------------------------
 // THEME VARIABLES
 // ------------------------------------------------------------
@@ -186,3 +162,35 @@
         "layout",
         "base",
         "theme";
+        
+// ------------------------------------------------------------
+// IMPORT FONST
+// ------------------------------------------------------------
+
+// @TODO 
+// need to port compass' font-files function so this works with libsass
+// https://github.com/Compass/compass/blob/stable/core/lib/compass/core/sass_extensions/functions/font_files.rb
+// 
+
+/*
+@include font-face("entypo", font-files("icons/entypo.woff", "icons/entypo.ttf"), "icons/entypo.eot",
+	$weight: normal,
+	$style: normal
+);
+*/
+
+/* 	@font-face browser support according to caniuse.com
+*		.eot 				> IE8+
+		.eot?#iefix > IE6-IE8
+		.woff2			> super modern browsers (leave out for now)
+*		.woff				> pretty modern browsers
+		.ttf				> Safari, Android, iOS (leave out when having .woff)
+*		.svg#svgFontName > legacy iOS, Opera mini
+*/ 
+
+/*
+@include font-face("icomoon", font-files("icomoon/icomoon.woff", "icomoon/icomoon.svg#icomoon"), "icomoon/icomoon.eot",
+	$weight: normal,
+	$style: normal
+);
+*/

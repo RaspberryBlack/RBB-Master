@@ -85,3 +85,22 @@
     &:after{ content: ''; left: 100% }  
   }
 }
+
+// font-face mixin from compass
+@mixin font-face($name, $font-files, $eot: false, $weight: false, $style: false) {
+  $iefont: unquote("#{$eot}?#iefix");
+  @font-face {
+    font-family: quote($name);
+    @if $eot {
+      src: url($eot);
+      $font-files: url($iefont) unquote("format('embedded-opentype')"), $font-files;
+    }
+    src: $font-files;
+    @if $weight {
+      font-weight: $weight;
+    }
+    @if $style {
+      font-style: $style;
+    }
+  }
+}
